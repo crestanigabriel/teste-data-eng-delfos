@@ -1,0 +1,14 @@
+services:
+  fastapi:
+    container_name: fastapi_container
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0
+    # volumes:
+    #   - .:/app
+    ports:
+      - "8008:8000"
+  # postgres:
+  #   container_name: postgres_container
+  #   image: postgres
+  #   ports:
+  #     - "5432:5432"

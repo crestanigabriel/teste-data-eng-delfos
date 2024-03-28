@@ -2,7 +2,7 @@ CREATE TABLE data (
     timestamp TIMESTAMP,
     wind_speed DECIMAL,
     power DECIMAL,
-    ambient_temperature DECIMAL,
+    ambient_temperature DECIMAL
 );
 
 COPY data

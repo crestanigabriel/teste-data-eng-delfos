@@ -20,12 +20,12 @@ services:
     #   POSTGRES_USER: ${POSTGRES_USER:-postgres}
     #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mysecretpass}
     volumes:
-      - ./dataset:/docker-entrypoint-initdb.d
+      - ./utils/dataset:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     networks:
       - postgres
-    restart: unless-stopped
+    # restart: unless-stopped
 
 networks:
   postgres:

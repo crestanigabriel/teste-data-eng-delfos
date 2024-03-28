@@ -1,17 +1,22 @@
 version: "3"
 
 services:
-  fastapi:
+  db_api:
+    entrypoint: [ "echo", "Service disabled" ] # just for disable this service
     container_name: fastapi_container
+    depends_on:
+      - db
     build: .
+    env_file:
+      - .env
     command: uvicorn app.main:app --host 0.0.0.0
     # volumes:
     #   - .:/app
     ports:
       - "8081:8000"
-    networks:
-      - postgres
-  postgres:
+    # networks:
+    #   - postgres
+  db:
     container_name: postgres_container
     image: postgres:16.2
     env_file:
@@ -23,10 +28,10 @@ services:
       - ./utils/dataset:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-    networks:
-      - postgres
+    # networks:
+    #   - postgres
     # restart: unless-stopped
 
-networks:
-  postgres:
-    driver: bridge
+    # networks:
+    #   postgres:
+    #     driver: bridge

@@ -1,7 +1,11 @@
-from fastapi import Depends, FastAPI
+from datetime import datetime
+from typing import Annotated
+
+from fastapi import Body, Depends, FastAPI
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from db import crud, models
+from db import crud, models, schemas
 from db.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
@@ -23,7 +27,13 @@ def health_check():
     return {"message": "Ok"}
 
 
-@app.get("/data")
-def read_data(db: Session = Depends(get_db)):
-    data = crud.get_data(db)
+@app.post("/data")
+def read_data(body: schemas.ReadDataBody, db: Session = Depends(get_db)):
+    data = crud.get_data(
+        db,
+        start_datetime=body.start_datetime,
+        end_datetime=body.end_datetime,
+        fields=body.fields,
+    )
+
     return data

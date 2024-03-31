@@ -1,37 +1,62 @@
 version: "3"
 
 services:
-  db_api:
-    entrypoint: [ "echo", "Service disabled" ] # just for disable this service
-    container_name: fastapi_container
-    depends_on:
-      - db
-    build: .
-    env_file:
-      - .env
-    command: uvicorn app.main:app --host 0.0.0.0
-    # volumes:
-    #   - .:/app
-    ports:
-      - "8081:8000"
-    # networks:
-    #   - postgres
-  db:
-    container_name: postgres_container
+  source_db:
+    container_name: source_db_container
     image: postgres:16.2
+    restart: always
     env_file:
-      - .env
-    # environment:
-    #   POSTGRES_USER: ${POSTGRES_USER:-postgres}
-    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mysecretpass}
+      - ./source_db/.env
     volumes:
-      - ./utils/dataset:/docker-entrypoint-initdb.d
+      - ./source_db/dataset:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - 5432:5432
     # networks:
     #   - postgres
-    # restart: unless-stopped
 
     # networks:
     #   postgres:
     #     driver: bridge
+    # target_db:
+    #   container_name: target_db_container
+    #   image: postgres:16.2
+    #   env_file:
+    #     - ./target_db/.env
+    #   # environment:
+    #   #   POSTGRES_USER: ${POSTGRES_USER:-postgres}
+    #   #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mysecretpass}
+    #   volumes:
+    #     - ./target_db/dataset:/docker-entrypoint-initdb.d
+    #   ports:
+    #     - "5433:5432"
+  source_db_api:
+    container_name: source_db_api_container
+    depends_on:
+      - source_db
+    build: ./source_db_api
+    env_file:
+      - ./source_db/.env
+    command: uvicorn source_db_api.main:app --host 0.0.0.0
+    # volumes:
+    #   - .:/source_db_api
+    ports:
+      - "8081:8000"
+    # networks:
+    #   - postgres
+    # etl:
+    #   entrypoint: [ "echo", "Service disabled" ] # just for disable this service
+    #   container_name: etl_container
+    #   depends_on:
+    #     - target_db
+    #   build: ./etl
+    #   env_file:
+    #     - .env
+    #   command: uvicorn source_db_api.main:app --host 0.0.0.0
+    #   # volumes:
+    #   #   - .:/source_db_api
+    #   ports:
+    #     - "8082:8000"
+    #   # networks:
+    #   #   - postgres
+
+

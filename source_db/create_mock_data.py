@@ -8,7 +8,7 @@ import random
 def generate_csv(initial_date: dt.datetime, freq: int, interval: int) -> None:
     final_date = initial_date + dt.timedelta(days=interval)
 
-    with open("data/data.csv", "w") as f:
+    with open("dataset/data.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["timestamp", "wind_speed", "power", "ambient_temperature"])
 

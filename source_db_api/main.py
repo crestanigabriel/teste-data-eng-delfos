@@ -5,13 +5,8 @@ from fastapi import Body, Depends, FastAPI
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from .db import crud, models, schemas
-from .db.database import SessionLocal, engine
-
-
-import time
-
-time.sleep(10)
+from source_db_api.db import crud, models, schemas
+from source_db_api.db.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 

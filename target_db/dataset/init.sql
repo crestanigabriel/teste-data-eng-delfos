@@ -1,10 +1,11 @@
 CREATE TABLE signal (
-    id INT NOT NULL PRIMARY,
+    id INT PRIMARY KEY,
     name DECIMAL
 );
 
 CREATE TABLE data (
     timestamp TIMESTAMP,
-    signal_id DECIMAL,
-    value DECIMAL
+    signal_id INT,
+    value DECIMAL,
+    FOREIGN KEY (signal_id) REFERENCES signal(id)
 );

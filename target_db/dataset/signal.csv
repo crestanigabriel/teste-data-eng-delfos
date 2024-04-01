@@ -1,0 +1,9 @@
+id,name,func
+1,wind_speed,mean
+2,wind_speed,max
+3,wind_speed,min
+4,wind_speed,std
+5,power,mean
+6,power,max
+7,power,min
+8,power,std

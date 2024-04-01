@@ -6,7 +6,6 @@ services:
     image: postgres:16.2
     restart: always
     env_file:
-      - .env
       - ./source_db/.env
     volumes:
       - ./source_db/dataset:/docker-entrypoint-initdb.d
@@ -34,7 +33,6 @@ services:
     image: postgres:16.2
     restart: always
     env_file:
-      - .env
       - ./target_db/.env
     volumes:
       - ./target_db/dataset:/docker-entrypoint-initdb.d
@@ -64,7 +62,7 @@ services:
     # volumes:
     #   - .:/source_db_api
     ports:
-      - $SOURCE_DB_API_HOST_POST:8000
+      - $SOURCE_DB_API_HOST_PORT:8000
     # networks:
     #   - postgres
     # etl:

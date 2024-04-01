@@ -1,6 +1,6 @@
 # Pydantic models
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class SignalCreate(BaseModel):
@@ -8,8 +8,9 @@ class SignalCreate(BaseModel):
     name: str
     func: str
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
+    # class Config:
+    #     orm_mode = True
 
 
 class DataCreate(BaseModel):
@@ -17,5 +18,7 @@ class DataCreate(BaseModel):
     signal_id: int
     value: float
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
+
+    # class Config:
+    #     orm_mode = True

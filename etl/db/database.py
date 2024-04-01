@@ -10,14 +10,15 @@ is_inside_docker = os.environ.get("IS_INSIDE_DOCKER", False)
 # print(os.environ.get("PYTHONUNBUFFERED", False))
 # print(os.environ.get("IS_INSIDE_DOCKER", False))
 if not is_inside_docker:
-    print("RUNNING OUTSIDE DOCKER")
+    # print("RUNNING OUTSIDE DOCKER")
     from dotenv import load_dotenv, find_dotenv
 
     # load_dotenv(find_dotenv("../../.env"))
     load_dotenv(find_dotenv("../../target_db/.env"))
 
 else:
-    print("RUNNING INSIDE DOCKER")
+    # print("RUNNING INSIDE DOCKER")
+    pass
 
 DB_USER = os.getenv("POSTGRES_USER")
 DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
@@ -39,7 +40,7 @@ else:
 # Database connection string
 SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_HOST_PORT}/{DB_DATABASE_NAME}"
 # TODO: remove next line
-print(SQLALCHEMY_DATABASE_URL)
+# print(SQLALCHEMY_DATABASE_URL)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

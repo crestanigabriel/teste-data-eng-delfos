@@ -64,7 +64,7 @@ def get_data_from_source_db(input_date: str, fields: list[str]) -> pd.DataFrame 
         raise SystemExit("Exiting program: Source data fetch error.")
 
 
-def aggregate_data(df_source: pd.DataFrame) -> pd.DataFrame:
+def aggregate_data(df_source: pd.DataFrame, agg_funcs: list[str]) -> pd.DataFrame:
     """
     Agrega o dado 10-minutal com agregações de média, mínimo, máximo e desvio padrão. A
     transformação de dados pode ser implementada com qualquer biblioteca, desde que ela seja
@@ -85,7 +85,6 @@ def aggregate_data(df_source: pd.DataFrame) -> pd.DataFrame:
     #     aggregation[func] = aggregation[func].reset_index()
     #     logging.debug(aggregation[func])
     df_agg = pd.DataFrame()
-    agg_funcs = ["mean", "max", "min", "std"]
     for func in agg_funcs:
         df_agg_temp = (
             df_source.groupby(pd.Grouper(key="timestamp", freq="20min", origin="start"))

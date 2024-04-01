@@ -21,12 +21,6 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
-      # networks:
-      #   - postgres
-
-      # networks:
-      #   postgres:
-      #     driver: bridge
 
   target_db:
     container_name: target_db_container
@@ -59,26 +53,5 @@ services:
       - .env
       - ./source_db/.env
     command: uvicorn source_db_api.main:app --host 0.0.0.0
-    # volumes:
-    #   - .:/source_db_api
     ports:
       - $SOURCE_DB_API_HOST_PORT:8000
-    # networks:
-    #   - postgres
-    # etl:
-    #   entrypoint: [ "echo", "Service disabled" ] # just for disable this service
-    #   container_name: etl_container
-    #   depends_on:
-    #     - target_db
-    #   build: ./etl
-    #   env_file:
-    #     - .env
-    #   command: uvicorn source_db_api.main:app --host 0.0.0.0
-    #   # volumes:
-    #   #   - .:/source_db_api
-    #   ports:
-    #     - "8082:8000"
-    #   # networks:
-    #   #   - postgres
-
-

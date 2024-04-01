@@ -14,7 +14,6 @@ def generate_csv(initial_date: dt.datetime, freq: int, interval: int) -> None:
 
         current_date = initial_date
         while current_date < final_date:
-            print(current_date)
             writer.writerow(
                 [
                     current_date,

@@ -11,8 +11,6 @@ def get_data(
     end_datetime: datetime,
     fields: list[schemas.FieldsEnum],
 ):
-    # return db.query(models.Data).limit(5).all()
-
     columns = [getattr(models.Data, "timestamp")]
 
     if not fields:
@@ -31,9 +29,3 @@ def get_data(
     result = db.scalars(query).all()
 
     return result
-
-    return (
-        db.query(models.Data)
-        # .filter(models.Data.timestamp.between(start_datetime, end_datetime))
-        .all()
-    )

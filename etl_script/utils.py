@@ -28,7 +28,7 @@ def parse_input_date() -> str:
 
     args = parser.parse_args()
     input_date = args.date
-    logging.debug(f"Input data: {input_date}")
+    logging.info(f"Input data: {input_date}")
 
     return input_date
 
@@ -76,14 +76,6 @@ def aggregate_data(df_source: pd.DataFrame, agg_funcs: list[str]) -> pd.DataFram
     logging.debug(df_source.head())
     logging.debug(df_source.timestamp.dtype)
 
-    # aggregation = {}
-    # aggregation_funcs = ["mean", "max", "min", "std"]
-    # for func in aggregation_funcs:
-    #     aggregation[func] = df.groupby(
-    #         pd.Grouper(key="timestamp", freq="20min", origin="start")
-    #     ).agg(func)
-    #     aggregation[func] = aggregation[func].reset_index()
-    #     logging.debug(aggregation[func])
     df_agg = pd.DataFrame()
     for func in agg_funcs:
         df_agg_temp = (
@@ -131,28 +123,8 @@ def save_data_on_target_db(df_agg: pd.DataFrame):
     # logging.debug(df_signals.head())
 
     df_signals = pd.read_sql_table("signal", con=engine)
-    # df_signals.set_index("id", inplace=True)
     logging.debug(df_signals)
 
-    # df_melted = pd.melt(
-    #     aggregation["mean"],
-    #     id_vars=["timestamp"],
-    #     value_vars=["wind_speed", "power"],
-    #     var_name="name",
-    # )
-    # with pd.option_context(
-    #     "display.max_rows", None, "display.max_columns", None
-    # ):  # more options can be specified also
-    #     logging.debug(aggregation["mean"])
-    #     df_melted["func"] = "mean"
-    #     logging.debug(df_melted)
-    #     df_melted_merged = df_melted.merge(
-    #         df_signals,
-    #         how="left",
-    #         on=["name", "func"],
-    #         suffixes=("_left", "_right"),
-    #     )
-    #     logging.debug(df_melted_merged)
     df_melted = pd.melt(
         df_agg,
         id_vars=["timestamp", "func"],

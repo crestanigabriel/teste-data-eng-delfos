@@ -37,3 +37,5 @@ Sources of knowledge used:
 - [Initializing a PostgreSQL Database with a Dataset using Docker Compose](https://medium.com/@asuarezaceves/initializing-a-postgresql-database-with-a-dataset-using-docker-compose-a-step-by-step-guide-3feebd5b1545)
 - [[OFICIAL DOC] FastAPI with SQL (Relational) Databases](https://fastapi.tiangolo.com/tutorial/sql-databases/)
 - [[OFICIAL DOC] HTTPX Quickstart](https://www.python-httpx.org/quickstart/)
+- [[OFICIAL DOC] Dagster Quickstart](https://docs.dagster.io/getting-started/quickstart)
+- [[OFICIAL DOC] Deploying Dagster to Docker](https://docs.dagster.io/deployment/guides/docker)

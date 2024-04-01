@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 from typing import Annotated
 
 from fastapi import Body, Depends, FastAPI
@@ -11,6 +12,8 @@ from source_db_api.db.database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+logging.basicConfig(level=logging.WARNING)
 
 
 # Dependency

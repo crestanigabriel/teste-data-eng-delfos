@@ -1,9 +1,8 @@
-from datetime import datetime
 import logging
-from typing import Annotated
 
-from fastapi import Body, Depends, FastAPI
-from pydantic import BaseModel
+logging.basicConfig(level=logging.INFO)
+
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
 from source_db_api.db import crud, models, schemas
@@ -12,8 +11,6 @@ from source_db_api.db.database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-logging.basicConfig(level=logging.WARNING)
 
 
 # Dependency

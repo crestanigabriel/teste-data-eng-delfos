@@ -8,11 +8,11 @@ from sqlalchemy import create_engine
 
 class SourceDBResource(ConfigurableResource):
     def get_data(self, input_date: str, fields: list[str]) -> pd.DataFrame:
-        SOURCE_DB_API_HOST_PORT = 8081
+        SOURCE_DB_API_HOST_PORT = os.getenv("SOURCE_DB_API_HOST_PORT")
         base_url = f"http://localhost:{SOURCE_DB_API_HOST_PORT}"
         body = {
-            "start_datetime": f"{input_date}T07:00:00",
-            "end_datetime": f"{input_date}T08:59:59",
+            "start_datetime": f"{input_date}T00:00:00",
+            "end_datetime": f"{input_date}T23:59:59",
             "fields": fields,
         }
         try:
@@ -34,16 +34,13 @@ class SourceDBResource(ConfigurableResource):
 
 class TargetDBResource(ConfigurableResource):
     def post_data(self, df_agg: pd.DataFrame) -> None:
+        # Database connection
         DB_USER = os.getenv("POSTGRES_USER")
         DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
         DB_DATABASE_NAME = os.getenv("POSTGRES_DB")
 
-        DB_HOST_PORT = os.getenv("DB_HOST_PORT")
+        DB_HOST_PORT = os.getenv("TARGET_DB_HOST_PORT")
         DB_HOST_NAME = "localhost"
-        # if is_inside_docker:
-        #     DB_HOST_NAME = DB_DATABASE_NAME
-        # else:
-        #     DB_HOST_NAME = "localhost"
 
         # Database connection string
         SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_HOST_PORT}/{DB_DATABASE_NAME}"
@@ -51,9 +48,7 @@ class TargetDBResource(ConfigurableResource):
 
         engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-        #####################
-        #####################
-
+        # Saving data
         df_signals = pd.read_sql_table("signal", con=engine)
         # logging.debug(df_signals)
 

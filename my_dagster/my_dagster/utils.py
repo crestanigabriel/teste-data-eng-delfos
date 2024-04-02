@@ -16,7 +16,7 @@ def aggregate_data(df_source: pd.DataFrame, agg_funcs: list[str]) -> pd.DataFram
     df_agg = pd.DataFrame()
     for func in agg_funcs:
         df_agg_temp = (
-            df_source.groupby(pd.Grouper(key="timestamp", freq="20min", origin="start"))
+            df_source.groupby(pd.Grouper(key="timestamp", freq="10min", origin="start"))
             .agg(func)
             .reset_index()
         )

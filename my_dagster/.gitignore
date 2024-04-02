@@ -1,3 +1,8 @@
+tmp*
+.vscode
+.ruff_cache
+.dagster
+
 .idea
 .ipynb_checkpoints
 .mypy_cache

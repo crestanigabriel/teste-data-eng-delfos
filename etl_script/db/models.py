@@ -8,9 +8,7 @@ from .database import Base
 class Signal(Base):
     __tablename__ = "signal"
 
-    id = Column(
-        Integer, primary_key=True, unique=True, index=True
-    )  # TODO: check each of these parameters' utility
+    id = Column(Integer, primary_key=True)
     name = Column(String)
     func = Column(String)
 
@@ -26,8 +24,6 @@ class Signal(Base):
 class Data(Base):
     __tablename__ = "data"
 
-    timestamp = Column(
-        TIMESTAMP, primary_key=True, unique=True, index=True
-    )  # TODO: check each of these parameters' utility
-    signal_id = Column(Integer, ForeignKey("signal.id"))
+    timestamp = Column(TIMESTAMP, primary_key=True)
+    signal_id = Column(Integer, ForeignKey("signal.id"), primary_key=True)
     value = Column(Numeric)

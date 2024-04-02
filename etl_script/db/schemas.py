@@ -1,24 +1,19 @@
-# Pydantic models
+# # Pydantic models
 
-from pydantic import BaseModel, ConfigDict
-
-
-class SignalCreate(BaseModel):
-    id: int
-    name: str
-    func: str
-
-    model_config = ConfigDict(from_attributes=True)
-    # class Config:
-    #     orm_mode = True
+# from pydantic import BaseModel, ConfigDict
 
 
-class DataCreate(BaseModel):
-    timestamp: str
-    signal_id: int
-    value: float
+# class SignalCreate(BaseModel):
+#     id: int
+#     name: str
+#     func: str
 
-    model_config = ConfigDict(from_attributes=True)
+#     model_config = ConfigDict(from_attributes=True)
 
-    # class Config:
-    #     orm_mode = True
+
+# class DataCreate(BaseModel):
+#     timestamp: str
+#     signal_id: int
+#     value: float
+
+#     model_config = ConfigDict(from_attributes=True)

@@ -12,14 +12,14 @@ tecnologia, mas recomenda-se o uso do pandas em conjunto com o sqlalchemy.
 
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 import utils
 
 
 def main():
     VARS = ["wind_speed", "power"]
     AGG_FUNCS = ["mean", "max", "min", "std"]
-
-    logging.basicConfig(level=logging.WARNING)
 
     input_date = utils.parse_input_date()
     df_source = utils.get_data_from_source_db(input_date, fields=VARS)

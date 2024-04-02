@@ -144,6 +144,9 @@ def save_data_on_target_db(df_agg: pd.DataFrame):
         df_melted_merged.drop(["name", "func"], axis=1, inplace=True)
         logging.debug(df_melted_merged)
 
+        # Sort data
+        df_melted_merged.sort_values(by=["timestamp", "signal_id"], inplace=True)
+
     rows_affected = df_melted_merged.to_sql(
         "data", con=engine, if_exists="append", index=False
     )
